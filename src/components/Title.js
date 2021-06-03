@@ -3,7 +3,7 @@ import React from 'react';
 const Title = () => {
   return <div id="title">
     <h1>
-      Fitness Tracker
+      FITNESS TRACKER
     </h1>
     <h5>
       Make your own Fitness Tracker

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 
 // These imports won't work until you fix ./components/index.js
 import {
-  Title
+  Title,
+  Home,
+  MenuTab
 } from './components';
 
 const App = () => {
@@ -19,8 +21,8 @@ const App = () => {
 
   return <div className="app">
     <Title />
-    {/* <Search /> needs props for setIsLoading and setSearchResults (trigger <Loading /> on search start/end, and transfer results to preview) */}
-    {/* <Home /> */}
+    <MenuTab />
+    <Home />
     {/* <Preview /> needs props for searchResults, setIsLoading and setSearchResults (clicking prev/next buttons), and setFeaturedResult (clicking a preview) */}
     {/* <Routines /> */}
     {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties) */}

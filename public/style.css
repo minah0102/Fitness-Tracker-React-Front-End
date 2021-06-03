@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Parisienne|Roboto|Playfair+Display|Roboto+Condensed&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 * {
   border: 0;
@@ -17,32 +17,47 @@ body {
 
 .app {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: auto;
   grid-template-rows: auto auto 1fr;
-  grid-gap: 8px;
+  /* grid-gap: 8px; */
 
   height: 100%;
   width: 100%;
 
   overflow: hidden;
 
-  background: #444;
+  background: white;
 }
 
 #title {
   grid-row: 1;
-  background-color: steelblue;
-  grid-column: 1 / -1;
+  background-color: #ccccff;
+  /* grid-column: 1 / -1; */
   padding: 8px;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 #title h1 {
-  font-family: "Parisienne", cursive;
+  font-family: "Montserrat";
   font-size: 3.2rem;
 }
 
 #title h5 {
+  font-family: "Montserrat";
   font-size: 1rem;
+}
+
+#menu-tab {
+  background-color: blanchedalmond;
+  padding: 1rem;
+}
+
+#menu-tab button {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+#home {
+  text-align: center;
 }
