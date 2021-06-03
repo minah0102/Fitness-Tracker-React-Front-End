@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css?family=Parisienne|Roboto|Playfair+Display|Roboto+Condensed&display=swap");
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+}
+
+#app {
+  height: 100%;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-gap: 8px;
+
+  height: 100%;
+  width: 100%;
+
+  overflow: hidden;
+
+  background: #444;
+}
+
+#title {
+  grid-row: 1;
+  background-color: steelblue;
+  grid-column: 1 / -1;
+  padding: 8px;
+  text-align: center;
+  color: white;
+}
+
+#title h1 {
+  font-family: "Parisienne", cursive;
+  font-size: 3.2rem;
+}
+
+#title h5 {
+  font-size: 1rem;
+}
