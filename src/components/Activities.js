@@ -7,7 +7,7 @@ const Activities = ({ activities, currentUser }) => {
     <div id="activities">
       <h3>
         {currentUser ? (
-          <Link to="NewActivity">
+          <Link to="AddNewActivity">
             <button>Add New Activity</button>
           </Link>
         ) : null}

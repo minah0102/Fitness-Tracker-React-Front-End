@@ -8,7 +8,8 @@ import {
   Activities,
   Routines,
   MyRoutines,
-  AddNewRoutine
+  AddNewRoutine,
+  AddNewActivity
 } from './components';
 
 import {
@@ -68,8 +69,7 @@ const App = () => {
               <Link to="/" className="button">Home</Link>
               <Link to="/Routines" className="button">Routines</Link>
               <Link to="/Activities" className="button">Activities</Link>
-              {currentUser ? (
-                <Link to="/myroutines" className="button">My Routines</Link>) : null}
+              <Link to="/myroutines" className="button">My Routines</Link>
             </nav>
           </div>
           <main>
@@ -77,9 +77,11 @@ const App = () => {
               <Route exact path="/">
                 <Home />
               </Route>
+
               <Route path="/Routines">
                 <Routines />
               </Route>
+
               <Route path="/myroutines">
                 {currentUser ? (
                   <MyRoutines
@@ -92,18 +94,21 @@ const App = () => {
                     }}
                   />
                 ) : null}
-                <Route path="/AddNewRoutine">
-                  <NewRoutine {...{ token }} />
-                </Route>
               </Route>
+
+              <Route path="/AddNewRoutine">
+                <AddNewRoutine {...{ token }} />
+              </Route>
+
               <Route path="/Activities">
                 <Activities
                   currentUser={currentUser}
                   activities={activities}
                 />
-                <Route path="/AddNewActivity">
-                  <NewActivity {...{ token }} />
-                </Route>
+              </Route>
+
+              <Route path="/AddNewActivity">
+                <AddNewActivity {...{ token }} />
               </Route>
             </Switch>
           </main>
