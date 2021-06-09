@@ -3,7 +3,7 @@ import axios from "axios";
 // import { setToken } from "../auth/token"
 
 
-export const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api';
+export const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api';
 
 //DATA&TOKEN
 
