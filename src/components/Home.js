@@ -7,19 +7,18 @@ const Home = () => {
   const [user, setUser] = useState(null);
   //const [login, setLogin] = useState("")
   
-  useEffect(() => {
-    fetch(`${BASE_URL}/users/me`, {
+  useEffect(async () => {
+    await fetch(`${BASE_URL}/users/me`, {
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },
     })
     .then((d) => d.json())
     .then((u) => {
-      console.log(u);
       if (u) setUser(u);
     });
   }, []);
-
+  
   return <div id="home">
     <h1>Fitness Tracker</h1>
     <p>

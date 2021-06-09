@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createActivity } from "../api";
 
-const NewActivity = ({ token }) => {
+const AddNewActivity = ({ token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const history = useHistory();
@@ -54,4 +54,4 @@ const NewActivity = ({ token }) => {
     </>
   );
 };
-export default NewActivity;
+export default AddNewActivity;

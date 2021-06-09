@@ -14,12 +14,13 @@ const Routines = () => {
     <div id="routines">
       {routines ? (routines.map((routine) => {
         const { name, creatorName, goal, activities } = routine;
-        console.log(routine.activities);
+        // console.log(routine.activities);
         return (
           <div key={routine.id} className="routine">
             <h2>
-              {name} by {creatorName}
+              Name: {name}
             </h2>
+            <h3>Creator: {creatorName}</h3>
             <h3>Goal: {goal}</h3><br/>
             <div id="routine-activities">
               <b>Activities for this routine:</b>

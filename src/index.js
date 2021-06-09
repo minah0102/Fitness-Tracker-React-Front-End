@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import { fetchData, getMe } from "./api";
-
 import {
   Title,
   Home,
   Activities,
-  Routines
+  Routines,
+  MyRoutines,
+  AddNewRoutine
 } from './components';
 
 import {
@@ -39,6 +40,8 @@ const App = () => {
     setActivities(data);
   }, []);
 
+
+
   // return <div className="app">
   //   <Title />
   //   <MenuTab />
@@ -65,6 +68,8 @@ const App = () => {
               <Link to="/" className="button">Home</Link>
               <Link to="/Routines" className="button">Routines</Link>
               <Link to="/Activities" className="button">Activities</Link>
+              {currentUser ? (
+                <Link to="/myroutines" className="button">My Routines</Link>) : null}
             </nav>
           </div>
           <main>
@@ -75,15 +80,34 @@ const App = () => {
               <Route path="/Routines">
                 <Routines />
               </Route>
+              <Route path="/myroutines">
+                {currentUser ? (
+                  <MyRoutines
+                    {...{
+                      setActivityToUpdate,
+                      setRoutine,
+                      currentUser,
+                      token,
+                      activities,
+                    }}
+                  />
+                ) : null}
+                <Route path="/AddNewRoutine">
+                  <NewRoutine {...{ token }} />
+                </Route>
+              </Route>
               <Route path="/Activities">
-                <Activities 
-                currentUser={currentUser}
-                activities={activities}
+                <Activities
+                  currentUser={currentUser}
+                  activities={activities}
                 />
+                <Route path="/AddNewActivity">
+                  <NewActivity {...{ token }} />
+                </Route>
               </Route>
             </Switch>
           </main>
-          
+
         </div>
       </>
     </Router>
