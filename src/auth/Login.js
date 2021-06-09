@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../api";
 
-const Login = ({setUser, setFormType }) => {
+const Login = ({ setUser, setFormType }) => {
     const [usernameInput, setUsernameInput] = useState("");
     const [passwordInput, setPasswordInput] = useState("");
     
