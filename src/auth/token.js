@@ -3,7 +3,19 @@ export const getToken = () => {
     return token;
 };
 
+// export const setToken = (token) => {
+//     localStorage.setItem("token", token);
+//     return token;
+// };
 export const setToken = (token) => {
     localStorage.setItem("token", token);
-    return token;
-};
+  };
+
+// export const deleteToken = () => {
+//     localStorage.removeItem("token");
+// };
+
+// export const handleLogOut = () => {
+//     deleteToken();
+//     location.reload();
+// }

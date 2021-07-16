@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 
 * {
   border: 0;
@@ -13,15 +13,13 @@ body {
 }
 
 #app {
-  height: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  background-color: rgb(175, 175, 175);
+  overflow-y: scroll;
 }
 
-.app {
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto auto 1fr;
-  /* grid-gap: 8px; */
-
+/* .app {
   height: 100%;
   width: 100%;
 
@@ -33,7 +31,6 @@ body {
 #title {
   grid-row: 1;
   background-color: #ccccff;
-  /* grid-column: 1 / -1; */
   padding: 8px;
   text-align: center;
   color: black;
@@ -45,25 +42,30 @@ body {
 
 #title h5 {
   font-size: 1rem;
-}
+} */
 
-#menu-tab {
+/* .navbar .container {
   background-color: whitesmoke;
-  padding: 1rem;
+  padding: 1.3rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-#menu-tab .button {
+.navbar-nav .nav-link {
   padding: 0.6rem;
   margin-right: 0.5rem;
   border-radius: 15px;
   background-color: #ccccff;
   color: black;
-}
+} */
 
-#home {
+/* .home {
   text-align: center;
-}
+  height: 100vh;
+  background-color: rgb(175, 175, 175);
+  padding: 6rem;
+} */
 
 /* #home .login-button {
   text-align: center;
@@ -101,7 +103,7 @@ body {
   color: black;
 }
 
-#register {
+/* #register {
   margin: 1rem;
   padding: 1rem;
 }
@@ -117,9 +119,9 @@ body {
 #register input {
   margin: 0.5rem;
   padding: 0.3rem;
-}
+} */
 
-#greeting {
+/* #greeting {
   margin: 1rem;
   padding: 1rem;
 }
@@ -130,7 +132,7 @@ body {
   border-radius: 15px;
   background-color: #ccccff;
   color: black;
-}
+} */
 
 #routines {
   margin: 1rem;

@@ -1,32 +1,66 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-
-import { fetchData, getMe } from "./api";
-import {
-  Title,
-  Home,
-  Activities,
-  Routines,
-  MyRoutines,
-  AddNewRoutine,
-  AddNewActivity
-} from './components';
+import { render } from 'react-dom';
+import { Container } from "react-bootstrap";
 
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch,
-  Redirect
 } from "react-router-dom";
 
-const App = () => {
 
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+import {
+  Title,
+  Header,
+  Home,
+  Register,
+  Login,
+  Activities,
+  MyRoutines,
+  AddNewRoutine,
+  AddNewActivity,
+  Routines
+} from './components';
+
+
+import { fetchData, getMe } from "./api";
+import { getToken } from './auth/token';
+
+export const UserContext = React.createContext();
+
+const App = () => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [currentUser, setCurrentUser] = useState(null);
   const [activities, setActivities] = useState([]);
   const [routine, setRoutine] = useState({});
+  const [routines, setRoutines] = useState([]);
+  const [myRoutines, setMyRoutines] = useState([]);
   const [activityToUpdate, setActivityToUpdate] = useState({});
+  const [modalShow, setModalShow] = useState(false);
+
+  const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api'
+
+  useEffect(async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/users/me`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const user = await response.json();
+      if (user.error) return setUser(null);
+      setUser(user);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   useEffect(async () => {
     if (token) {
@@ -36,6 +70,37 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    axios.get(`${BASE_URL}/routines`)
+      .then((response) => {
+        setRoutines(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  
+
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/activities`)
+      .then((response) => {
+        setActivities(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  // useEffect(async () => {
+  //   if (token) {
+  //     await getMe(token).then((response) => {
+  //       setCurrentUser(response.username);
+  //     });
+  //   }
+  // }, []);
+
   useEffect(async () => {
     const data = await fetchData("Activities");
     setActivities(data);
@@ -43,81 +108,124 @@ const App = () => {
 
 
 
-  // return <div className="app">
-  //   <Title />
-  //   <MenuTab />
-  //   <Home />
-  //   {/* <Routines /> */}
-  //   {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties) */}
-  //   <Activities
-  //   //{...{featuredResult, setIsLoading, searchResults}}
-  //   />
-  //   {/* <MyRoutines /> */}
-
-  //   {// isLoading ? <Loading  /> : null 
-  //   }
-  //   {/* use a ternary and render null if isLoading is false */}
-  // </div>
-
   return (
     <Router>
-      <>
-        <div className="app">
+      <div id="app">
+        <UserContext.Provider
+          value={{
+            user,
+            setUser,
+            currentUser,
+            setCurrentUser,
+            token,
+            setToken,
+            routine,
+            setRoutine,
+            routines,
+            setRoutines,
+            activities,
+            setActivities,
+            activityToUpdate,
+            setActivityToUpdate,
+            modalShow,
+            setModalShow
+          }}
+        >
           <Title />
-          <div id="menu-tab">
-            <nav>
-              <Link to="/" className="button">Home</Link>
-              <Link to="/Routines" className="button">Routines</Link>
-              <Link to="/Activities" className="button">Activities</Link>
-              <Link to="/myroutines" className="button">My Routines</Link>
-            </nav>
-          </div>
-          <main>
+          <Header />
+
+          <Container>
             <Switch>
               <Route exact path="/">
                 <Home />
               </Route>
 
-              <Route path="/Routines">
+              <Route exact path="/register">
+                <Register />
+              </Route>
+
+              <Route exact path="/login">
+                <Login />
+              </Route>
+
+              <Route path="/routines">
                 <Routines />
               </Route>
 
-              <Route path="/myroutines">
-                {currentUser ? (
-                  <MyRoutines
-                    {...{
-                      setActivityToUpdate,
-                      setRoutine,
-                      currentUser,
-                      token,
-                      activities,
-                    }}
-                  />
-                ) : null}
+              <Route exact path="/activities">
+                <Activities />
               </Route>
 
-              <Route path="/AddNewRoutine">
-                <AddNewRoutine {...{ token }} />
+              <Route exact path="/myroutines">
+                <MyRoutines />
               </Route>
 
-              <Route path="/Activities">
-                <Activities
-                  currentUser={currentUser}
-                  activities={activities}
-                />
-              </Route>
-
-              <Route path="/AddNewActivity">
-                <AddNewActivity {...{ token }} />
-              </Route>
             </Switch>
-          </main>
-
-        </div>
-      </>
+          </Container>
+        </UserContext.Provider>
+      </div>
     </Router>
   )
+
+  // return (
+  //   <Router>
+  //     <>
+  //       <div className="app">
+  //         <Title />
+  //         <div id="menu-tab">
+  //           <nav>
+  //             <Link to="/" className="button">Home</Link>
+  //             <Link to="/Routines" className="button">Routines</Link>
+  //             <Link to="/Activities" className="button">Activities</Link>
+  //             <Link to="/myroutines" className="button">My Routines</Link>
+  //           </nav>
+  //         </div>
+  //         <main>
+  //           <Switch>
+  //             <Route exact path="/">
+  //               <Home />
+  //             </Route>
+
+  //             <Route path="/Routines">
+  //               <Routines />
+  //             </Route>
+
+  //             <Route path="/myroutines">
+  //               {currentUser ? (
+  //                 <MyRoutines
+  //                   {...{
+  //                     setActivityToUpdate,
+  //                     setRoutine,
+  //                     currentUser,
+  //                     token,
+  //                     activities,
+  //                   }}
+  //                 />
+  //               ) : null}
+  //             </Route>
+
+  //             <Route path="/AddNewRoutine">
+  //               <AddNewRoutine {...{ token }} />
+  //             </Route>
+
+  //             <Route path="/Activities">
+  //               <Activities
+  //                 currentUser={currentUser}
+  //                 activities={activities}
+  //               />
+  //             </Route>
+
+  //             <Route path="/AddNewActivity">
+  //               <AddNewActivity {...{ token }} />
+  //             </Route>
+  //           </Switch>
+  //         </main>
+
+  //       </div>
+  //     </>
+  //   </Router>
+  // )
 }
 
 
-ReactDOM.render(<App />, document.getElementById("app"));
+render(<App />, document.getElementById("main"));

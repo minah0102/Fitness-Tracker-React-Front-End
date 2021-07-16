@@ -1,0 +1,42 @@
+
+#title {
+  grid-row: 1;
+  background-color: #ccccff;
+  /* grid-column: 1 / -1; */
+  padding: 8px;
+  text-align: center;
+  color: black;
+}
+
+#title h1 {
+  font-size: 3.2rem;
+}
+
+#title h5 {
+  font-size: 1rem;
+}
+
+.navbar {
+  background-color: whitesmoke;
+  
+}
+
+.navbar .one {
+  text-align: center;
+}
+
+/* .navbar .container {
+  background-color: whitesmoke;
+  padding: 1.3rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+} */
+
+.navbar-nav .nav-link {
+  padding: 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 15px;
+  background-color: #ccccff;
+  color: black;
+}

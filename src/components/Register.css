@@ -1,0 +1,22 @@
+/* #register {
+  margin: 1rem;
+  padding: 1rem;
+}
+
+#register button {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 15px;
+  background-color: #ccccff;
+  color: black;
+}
+
+#register input {
+  margin: 0.5rem;
+  padding: 0.3rem;
+} */
+
+.auth-form {
+  text-align: left;
+}
+

@@ -1,0 +1,11 @@
+.home {
+  text-align: center;
+  height: auto;
+  background-color: rgb(175, 175, 175);
+  margin-top: 3rem;
+  padding-top: 3rem;
+}
+
+.home .container {
+  text-align: center;
+}

@@ -1,42 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import { AuthForm, Greeting } from "../auth"
-import { getToken } from "../auth/token"
-import {BASE_URL} from "../api";
+import React, { useContext } from 'react';
+import { UserContext } from '..';
+import "./Home.css";
+import { Container } from 'react-bootstrap';
+
 
 const Home = () => {
-  const [user, setUser] = useState(null);
-  //const [login, setLogin] = useState("")
-  
-  useEffect(async () => {
-    await fetch(`${BASE_URL}/users/me`, {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    })
-    .then((d) => d.json())
-    .then((u) => {
-      if (u) setUser(u);
-    });
-  }, []);
-  
-  return <div id="home">
-    <h1>Fitness Tracker</h1>
-    <p>
-      Login/Sign Up to use our fitness tracker.
-      </p>
-      <>
+  const { user } = useContext(UserContext);
+
+  return (
+    <Container className="home">
       {user ? (
-        <Greeting 
-        user={user}
-        setUser={setUser} />
+        <div className="welcome-logged-in-user">
+          <h1>Welcome, {user.username}</h1>
+          <h5>Please enjoy Fitness Tracker.</h5>
+        </div>
       ) : (
-        <AuthForm setUser={setUser} />
+        <div className="welcome-future-user">
+          <h1>Welcome to Fitness Tracker</h1>
+          <h5>Login/Sign Up to use our fitness tracker.</h5>
+        </div>
       )}
-      </>
-  </div>
+    </Container>
+  )
 };
 
 export default Home;
-
-{/* <input type="text" class="username" placeholder="Username" />
-      <input type="text" class="password" placeholder="Password" /><br /> */}

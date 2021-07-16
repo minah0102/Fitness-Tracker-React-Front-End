@@ -1,5 +1,8 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
+import { Row, Col, Button, Container } from "react-bootstrap";
 import { NavLink, useHistory } from "react-router-dom";
+import { AddNewRoutine } from ".";
+import { UserContext } from "..";
 import {
   fetchDataToken,
   addActivity,
@@ -7,13 +10,26 @@ import {
   deleteRoutine
 } from "../api";
 
-const MyRoutines = ({
-  setActivityToUpdate,
-  setRoutine,
-  currentUser,
-  token,
-  activities
-}) => {
+const buttonStyle = {
+  padding: "0.6rem",
+  marginRight: "0.5rem",
+  borderRadius: "15px",
+  backgroundColor: "#ccccff",
+  color: "black",
+  border: "none",
+}
+
+const MyRoutines = () => {
+  const {
+    setActivityToUpdate,
+    setRoutine,
+    currentUser,
+    token,
+    activities,
+    modalShow,
+    setModalShow
+  } = useContext(UserContext);
+
   const [myRoutines, setMyRoutines] = useState([]);
   const [duration, setDuration] = useState("");
   const [count, setCount] = useState("");
@@ -111,69 +127,74 @@ const MyRoutines = ({
     };
   }
 
+  
 
   return (
     <>
       <div id="my-routines">
-      <h2>My Routines</h2>
-      <NavLink to="AddNewRoutine">
-        <button>Add New Routine</button>
-      </NavLink>
+        <Container style={{margin: "0.5rem", padding: "0.5rem"}}>
+        <Row>
+          <Col><h1>My Routines</h1></Col>
+          <Col md={{ span: 3, offset: 3 }}><Button style={buttonStyle} onClick={()=>setModalShow(true)}>Create New Routine</Button></Col>
+        </Row>
+      </Container>
+      <AddNewRoutine 
+      show={modalShow}
+      onHide={()=>setModalShow(false)} />
+        {myRoutines.map((r) => {
+          <div key={r.id}>
+            <h2>
+              Name: {r.name}
+            </h2>
+            <h3>
+              Creator: {r.creatorName}<br />
+              Goal: {r.goal}
+              <button type="button" onClick={toUpdateRoutineMaker(r)}>
+                Update {r.name}
+              </button>
+            </h3>
+            <h4>Included Activities:</h4>
+            {r.activities.map((a) => (
+              <Fragment key={a.id}>
+                <h4>
+                  Name: {a.name}
+                  Duration: {a.duration}
+                  Count: {a.count}
+                  <button onClick={updateCountDurationMaker(a)}>Update</button>
+                  <button
+                    onClick={() =>
+                      destroyAct(a.routineActivityId, a.name, token)
+                    }
+                  >
+                    Delete
+                  </button>
+                </h4>
+                <h5 key={a.name}>
+                  ⫷{a.description}⫸
+                </h5>
+              </Fragment>
+            ))}
+            <form onSubmit={addActivityToRoutineMaker(r.id)}>
+              <label>
+                Activity to Add:
+                <select onChange={handleActivityChange} defaultValue="none">
+                  <option value="none" disabled hidden>Select an Option</option>
+                  {activities.map((e) => (
+                    <option key={a.id} value={a.id}>{a.name} - {a.description}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Count:
+                <input type="number" onChange={handleCountChange} />
+              </label>
+              <button>Add Activity to {r.name}</button>
+            </form>
 
-      {myRoutines.map((r) => {
-        <div>
-          <h2>
-            Name: {r.name}
-          </h2>
-          <h3>
-            Creator: {r.creatorName}<br/>
-            Goal: {r.goal}
-            <button type="button" onClick={toUpdateRoutineMaker(r)}>
-            Update {r.name}
-            </button>
-          </h3>
-          <h4>Included Activities:</h4>
-          {r.activities.map((a) => (
-            <Fragment key={a.id}>
-              <h4>
-                Name: {a.name}
-                Duration: {a.duration}
-                Count: {a.count}
-                <button onClick={updateCountDurationMaker(a)}>Update</button>
-                <button
-                  onClick={() =>
-                    destroyAct(a.routineActivityId, a.name, token)
-                  }
-                >
-                  Delete
-                </button>
-              </h4>
-              <h5 key={a.name}>
-                ⫷{a.description}⫸
-              </h5>
-            </Fragment>
-          ))}
-          <form onSubmit={addActivityToRoutineMaker(r.id)}>
-            <label>
-              Activity to Add:
-              <select onChange={handleActivityChange} defaultValue="none">
-                <option value="none" disabled hidden>Select an Option</option>
-                {activities.map((e) => (
-                  <option key={a.id} value={a.id}>{a.name} - {a.description}</option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Count:
-              <input type="number" onChange={handleCountChange}/>
-            </label>
-            <button>Add Activity to {r.name}</button>
-          </form>
+            <button onClick={() => destroyRoutine(r.id, r.name, token)}>Delete Routine</button>
 
-          <button onClick={() => destroyRoutine(r.id, r.name, token)}>Delete Routine</button>
-
-        </div>
-      })}
+          </div>
+        })}
       </div>
     </>
   );

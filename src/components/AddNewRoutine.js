@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Form } from "react-bootstrap";
 import { useHistory } from "react-router";
 
 import { addRoutine } from "../api";
 
-const AddNewRoutine = ({token}) => {
+const AddNewRoutine = ({ token }) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
@@ -40,32 +41,57 @@ const AddNewRoutine = ({token}) => {
     console.log(e.target.checked);
     setIsPublic(e.target.checked);
   };
-  
-  return(
-    <div id="add-new-routine">
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name: <br/>
-          <input type="text" value={name} onChange={nameChange}/>
-        </label>
 
-        <label>
-          Goal: <br/>
-          <input type="text" value={goal} onChange={goalChange}/>
-        </label>
+  // return (
+  //   <>
+  //     <div id="add-new-routine">
+  //       <form onSubmit={handleSubmit}>
+  //         <label>
+  //           Name: <br />
+  //           <input type="text" value={name} onChange={nameChange} />
+  //         </label>
 
-        <label>
-          Public Routine?<br/>
-          <label>
-            Public
-            <input type="checkbox" value={isPublic} onChange={publicChange}/>
-          </label>
-        </label>
+  //         <label>
+  //           Goal: <br />
+  //           <input type="text" value={goal} onChange={goalChange} />
+  //         </label>
 
-        <button type="submit">Create</button>
-      </form>
-    </div>
+  //         <label>
+  //           Public Routine?<br />
+  //           <label>
+  //             Public
+  //             <input type="checkbox" value={isPublic} onChange={publicChange} />
+  //           </label>
+  //         </label>
+
+  //         <button type="submit">Create</button>
+  //       </form>
+  //     </div>
+  //   </>
+  // )
+
+  return (
+    <>
+      <Form>
+        <Form.Group controlId="formNewActivityName">
+          <Form.Label>Name:</Form.Label>
+          <Form.Control type="text" placeholder="Enter name" />
+        </Form.Group>
+
+        <Form.Group controlId="formNewActivityGoal">
+          <Form.Label>Goal:</Form.Label>
+          <Form.Control type="text" placeholder="Enter goal" />
+        </Form.Group>
+
+        <Form.Group controlId="formNewActivityCheckbox">
+          <Form.Check type="checkbox" label="Public Routine?" />
+        </Form.Group>
+
+        <Button type="submit">Create</Button>
+      </Form>
+    </>
   )
 }
+
 
 export default AddNewRoutine;
