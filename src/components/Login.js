@@ -21,12 +21,20 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    
     try {
-      const data = await loginUser(usernameInput, passwordInput);
-      setToken(data.token);
-      setUser(data.user);
-      history.push("/");
+      const response = await loginUser(usernameInput, passwordInput);
+
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+        setToken(response.token);
+        setUser(response.user);
+        history.push("/");
+      } else {
+        alert(response.message);
+      }
     } catch (error) {
+      alert(error);
       console.error(error);
     }
   };

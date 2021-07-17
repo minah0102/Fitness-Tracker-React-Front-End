@@ -25,6 +25,12 @@ const Register = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!usernameInput || !passwordInput || !confirmPasswordInput) {
+      alert("Please fill out all required fields!")
+      setUser(null);
+      setPasswordInput("");
+      setConfirmPasswordInput("");
+    }
     if (passwordInput !== confirmPasswordInput) {
       alert("Passwords do not match!");
       setPasswordInput("");

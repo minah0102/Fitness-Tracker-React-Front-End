@@ -19,11 +19,10 @@ import {
   Login,
   Activities,
   MyRoutines,
-  AddNewRoutine,
-  AddNewActivity,
   Routines,
   CreateNewRoutine,
-  CreateNewActivity
+  CreateNewActivity,
+
 } from './components';
 
 
@@ -34,7 +33,7 @@ export const UserContext = React.createContext();
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [currentUser, setCurrentUser] = useState(null);
   const [activities, setActivities] = useState([]);
   const [routine, setRoutine] = useState({});
