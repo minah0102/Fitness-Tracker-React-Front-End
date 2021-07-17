@@ -13,36 +13,6 @@ const Routine = () => {
     setRoutines(data);
   }, []);
 
-  // return (
-  //   <div id="routines">
-  //     {routines ? (routines.map((routine) => {
-  //       const { name, creatorName, goal, activities } = routine;
-  //       return (
-  //         <div key={routine.id} className="routine">
-  //           <h2>
-  //             Name: {name}
-  //           </h2>
-  //           <h3>Creator: {creatorName}</h3>
-  //           <h3>Goal: {goal}</h3><br/>
-  //           <div id="routine-activities">
-  //             <b>Activities for this routine:</b>
-  //             {activities.map((activity) => {
-  //               const { description, duration, count } = activity;
-  //               return (
-  //                 <div key={activity.routineActivityId}>
-  //                   <p><b>Description: </b>{description}</p>
-  //                   <p><b>Duration: </b>{duration}</p>
-  //                   <p><b>Count: </b>{count}</p><br/>
-  //                 </div>
-  //               );
-  //             })}
-  //           </div>
-  //         </div>
-  //       );
-  //     })) : null}
-  //   </div>
-  // );
-
   return (
     <>
       <div style={{margin: "0.5rem", padding: "0.5rem"}}>
@@ -51,7 +21,7 @@ const Routine = () => {
         </Row>
       </div>
       <div>
-        <Card className="routine-card">
+        <Card style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr"}} className="routine-card">
           {routines ? (routines.map((routine => {
             const { name, creatorName, goal, activities } = routine;
             return (

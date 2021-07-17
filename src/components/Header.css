@@ -2,7 +2,6 @@
 #title {
   grid-row: 1;
   background-color: #ccccff;
-  /* grid-column: 1 / -1; */
   padding: 8px;
   text-align: center;
   color: black;
@@ -24,14 +23,6 @@
 .navbar .one {
   text-align: center;
 }
-
-/* .navbar .container {
-  background-color: whitesmoke;
-  padding: 1.3rem;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-} */
 
 .navbar-nav .nav-link {
   padding: 0.6rem;

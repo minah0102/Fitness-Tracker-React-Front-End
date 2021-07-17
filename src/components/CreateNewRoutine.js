@@ -42,7 +42,7 @@ const CreateNewRoutine = () => {
 
     if (!response.error) {
       clearInput();
-      history.push("/MyRoutines");
+      history.push("/myroutines");
     } else {
       alert(response.message);
     }
