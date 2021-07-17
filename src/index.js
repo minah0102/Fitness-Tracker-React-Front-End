@@ -21,7 +21,9 @@ import {
   MyRoutines,
   AddNewRoutine,
   AddNewActivity,
-  Routines
+  Routines,
+  CreateNewRoutine,
+  CreateNewActivity
 } from './components';
 
 
@@ -32,14 +34,13 @@ export const UserContext = React.createContext();
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [currentUser, setCurrentUser] = useState(null);
   const [activities, setActivities] = useState([]);
   const [routine, setRoutine] = useState({});
   const [routines, setRoutines] = useState([]);
   const [myRoutines, setMyRoutines] = useState([]);
   const [activityToUpdate, setActivityToUpdate] = useState({});
-  const [modalShow, setModalShow] = useState(false);
 
   const BASE_URL = 'https://fitnesstrac-kr.herokuapp.com/api'
 
@@ -70,28 +71,28 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
-    axios.get(`${BASE_URL}/routines`)
-      .then((response) => {
-        setRoutines(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${BASE_URL}/routines`)
+  //     .then((response) => {
+  //       setRoutines(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/activities`)
-      .then((response) => {
-        setActivities(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${BASE_URL}/activities`)
+  //     .then((response) => {
+  //       setActivities(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   // useEffect(async () => {
   //   if (token) {
@@ -123,12 +124,12 @@ const App = () => {
             setRoutine,
             routines,
             setRoutines,
+            myRoutines, 
+            setMyRoutines,
             activities,
             setActivities,
             activityToUpdate,
             setActivityToUpdate,
-            modalShow,
-            setModalShow
           }}
         >
           <Title />
@@ -148,7 +149,7 @@ const App = () => {
                 <Login />
               </Route>
 
-              <Route path="/routines">
+              <Route exact path="/routines">
                 <Routines />
               </Route>
 
@@ -156,8 +157,16 @@ const App = () => {
                 <Activities />
               </Route>
 
+              <Route exact path="/newactivity">
+                <CreateNewActivity />
+              </Route>
+
               <Route exact path="/myroutines">
                 <MyRoutines />
+              </Route>
+              
+              <Route exact path="/hello">
+                <CreateNewRoutine />
               </Route>
 
             </Switch>

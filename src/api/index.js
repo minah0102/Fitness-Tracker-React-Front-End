@@ -159,7 +159,8 @@ export async function getAllRoutines() {
 
 export async function addRoutine(name, goal, isPublic, token) {
   try {
-    const response = await fetch(`${BASE_URL}/routines`, {
+    const response = await fetch(`${BASE_URL}/routines`, 
+    {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -173,8 +174,8 @@ export async function addRoutine(name, goal, isPublic, token) {
     });
     const result = await response.json();
     return result;
-  } catch (error) {
-    return console.error(error);
+  } catch (data) {
+    return console.error(data);
   }
 };
 

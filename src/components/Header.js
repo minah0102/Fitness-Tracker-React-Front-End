@@ -1,8 +1,20 @@
 import React, { useContext } from "react";
 import { UserContext } from "..";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import "./Header.css";
+
+import { AddNewRoutine } from ".";
+
+const buttonStyle = {
+  padding: "0.6rem",
+  marginRight:" 0.5rem",
+  borderRadius: "15px",
+  backgroundColor: "#ccccff",
+  color: "black",
+  border: "none",
+}
+
 
 const Header = () => {
   const history = useHistory();
@@ -36,6 +48,8 @@ const Header = () => {
             {user ? (
               <Nav>
                 <Nav.Link onClick={() => history.push("/myroutines")}>My Routines</Nav.Link>
+                <Nav.Link onClick={() => history.push("/hello")}>Create New Routine</Nav.Link>
+                <Nav.Link onClick={() => history.push("/newactivity")}>Create New Activity</Nav.Link>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </Nav>
             ) : (
@@ -44,7 +58,6 @@ const Header = () => {
                 <Nav.Link onClick={() => history.push("/login")}>Login</Nav.Link>
               </Nav>
             )}
-
           </Navbar.Collapse>
         </Container>
       </Navbar>

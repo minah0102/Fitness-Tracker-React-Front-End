@@ -16,7 +16,7 @@ const mystyle = {
 
 const Register = () => {
   const history = useHistory();
-  const { user, setUser, setFormType} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
